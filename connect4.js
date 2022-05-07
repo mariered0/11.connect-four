@@ -151,5 +151,7 @@ function checkForWin() {
   }
 }
 
+const piece = document.querySelector('.piece')
+
 makeBoard();
 makeHtmlBoard();
