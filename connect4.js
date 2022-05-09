@@ -29,6 +29,7 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  playingGame = true;
   const htmlBoard = document.querySelector('#board');
   // TODO: add comment for this code
   const top = document.createElement("tr"); //creates a table row element
@@ -85,11 +86,14 @@ function endGame(msg) {
     alert(`Player ${currPlayer} won the game!`)
   }, 10);
   // top.removeEventListener("click", handleClick);
+  playingGame = false;
+  restart();
 };
 
 /** handleClick: handle click of column top to play piece */
 
 function handleClick(evt) {
+  if(playingGame === true){
   // get x from ID of clicked cell
   const x = +evt.target.id;
   // get next spot in column (if none, ignore click)
@@ -119,6 +123,7 @@ function handleClick(evt) {
   // TODO: switch currPlayer 1 <-> 2
   currPlayer === 1 ? currPlayer = 2 : currPlayer = 1;
 }
+};
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
@@ -173,6 +178,18 @@ function checkForWin() {
     }
   }
 }
+
+function restart() {
+  const restartBtn = document.createElement('button');
+  const restartContainer = document.querySelector('#restart-container');
+  restartBtn.setAttribute("id", "restart-btn");
+  restartBtn.setAttribute("type", "button");
+  restartContainer.append(restartBtn);
+  restartBtn.innerText = 'Restart';
+  restartBtn.addEventListener('click', function(){
+    location.reload();
+  });
+};
 
 makeBoard();
 makeHtmlBoard();
