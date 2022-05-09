@@ -17,10 +17,10 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-  for(let i = 0; i < HEIGHT; i ++){
+  for (let i = 0; i < HEIGHT; i++) {
     board.push([]);
-    for(let j = 0; j < WIDTH; j ++){
-    board[i][j] = null;
+    for (let j = 0; j < WIDTH; j++) {
+      board[i][j] = null;
     }
   }
 };
@@ -31,26 +31,26 @@ function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   const htmlBoard = document.querySelector('#board');
   // TODO: add comment for this code
-  const top = document.createElement("tr");//creates a table row element
-  top.setAttribute("id", "column-top");//adds id,'column-top' to the table row
-  top.addEventListener("click", handleClick);//makes the top rows clickable and when it's clicked handleClick function fires
+  const top = document.createElement("tr"); //creates a table row element
+  top.setAttribute("id", "column-top"); //adds id,'column-top' to the table row
+  top.addEventListener("click", handleClick); //makes the top rows clickable and when it's clicked handleClick function fires
 
   for (let x = 0; x < WIDTH; x++) {
-    const headCell = document.createElement("td");//creates table data cells
-    headCell.setAttribute("id", x);//sets id 'x' to the cells created
-    top.append(headCell);//places the table data cells to the table row element
+    const headCell = document.createElement("td"); //creates table data cells
+    headCell.setAttribute("id", x); //sets id 'x' to the cells created
+    top.append(headCell); //places the table data cells to the table row element
   }
-  htmlBoard.append(top);//places the table row element to the board table
+  htmlBoard.append(top); //places the table row element to the board table
 
   // TODO: add comment for this code
   for (let y = 0; y < HEIGHT; y++) {
-    const row = document.createElement("tr");//creates table rows
+    const row = document.createElement("tr"); //creates table rows
     for (let x = 0; x < WIDTH; x++) {
-      const cell = document.createElement("td");//creates table data cells
-      cell.setAttribute("id", `${y}-${x}`);//sets id to the table data cells
-      row.append(cell);//places the cells to the table rows
+      const cell = document.createElement("td"); //creates table data cells
+      cell.setAttribute("id", `${y}-${x}`); //sets id to the table data cells
+      row.append(cell); //places the cells to the table rows
     }
-    htmlBoard.append(row);//places the table rows to the board table
+    htmlBoard.append(row); //places the table rows to the board table
   }
 }
 
@@ -58,8 +58,8 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  for(let y = HEIGHT -1; y >= 0; y--){
-    if(board[y][x] === null){
+  for (let y = HEIGHT - 1; y >= 0; y--) {
+    if (board[y][x] === null) {
       return y;
     }
   }
@@ -81,8 +81,11 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
-  alert(`${currPlayer} won the game!`)
-}
+  setTimeout(function () {
+    alert(`Player ${currPlayer} won the game!`)
+  }, 10);
+  // top.removeEventListener("click", handleClick);
+};
 
 /** handleClick: handle click of column top to play piece */
 
@@ -107,9 +110,9 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  if(board.every(el => {
-    el !== null;
-  })){
+  if (board.every(el => {
+      el !== null;
+    })) {
     return endGame;
   }
   // switch players
@@ -127,22 +130,42 @@ function checkForWin() {
 
     return cells.every(
       ([y, x]) =>
-        y >= 0 &&
-        y < HEIGHT &&
-        x >= 0 &&
-        x < WIDTH &&
-        board[y][x] === currPlayer
+      y >= 0 &&
+      y < HEIGHT &&
+      x >= 0 &&
+      x < WIDTH &&
+      board[y][x] === currPlayer
     );
   }
 
   // TODO: read and understand this code. Add comments to help you.
-//checks if the three cells that are neightbor to the cell that was just played was also played by the owner of the cell
+  //checks if the three cells that are neightbor to the cell that was just played was also played by the owner of the cell
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
-      const horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      const vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-      const diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-      const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+      const horiz = [
+        [y, x],
+        [y, x + 1],
+        [y, x + 2],
+        [y, x + 3]
+      ];
+      const vert = [
+        [y, x],
+        [y + 1, x],
+        [y + 2, x],
+        [y + 3, x]
+      ];
+      const diagDR = [
+        [y, x],
+        [y + 1, x + 1],
+        [y + 2, x + 2],
+        [y + 3, x + 3]
+      ];
+      const diagDL = [
+        [y, x],
+        [y + 1, x - 1],
+        [y + 2, x - 2],
+        [y + 3, x - 3]
+      ];
 
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
