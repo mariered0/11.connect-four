@@ -53,12 +53,14 @@ body{
 }
 
 #restart-container{
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 #restart-btn{
+  position: absolute;
   margin-top: 50px;
   padding: 10px 30px;
   border-radius: 30px;
@@ -67,4 +69,8 @@ body{
   font-family: 'Montserrat', sans-serif;
   font-size: 20pt;
   color: #A3C4F3;
+}
+
+#restart-btn:active{
+  top: 2px;
 }
