@@ -35,11 +35,11 @@ body{
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
-.p1{
+div.p1{
   background-color:#F0A6CA;
 }
 
-.p2{
+div.p2{
   background-color:#9C89B8;
 }
 /* column-top is table row of clickable areas for each column */
@@ -48,9 +48,17 @@ body{
   border: dashed 1px lightgray;
 }
 
-#column-top td:hover {
+/* #column-top td:hover {
   background-color: #FBF8CC
+} */
+#column-top.p1 td:hover {
+  background-color: #F0A6CA
 }
+#column-top.p2 td:hover {
+  background-color: #9C89B8
+}
+
+
 
 #restart-container{
   position: relative;

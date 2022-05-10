@@ -7,7 +7,7 @@
 
 const WIDTH = 7;
 const HEIGHT = 6;
-
+//
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 
@@ -34,6 +34,7 @@ function makeHtmlBoard() {
   // TODO: add comment for this code
   const top = document.createElement("tr"); //creates a table row element
   top.setAttribute("id", "column-top"); //adds id,'column-top' to the table row
+  top.classList.add('p1');
   top.addEventListener("click", handleClick); //makes the top rows clickable and when it's clicked handleClick function fires
 
   for (let x = 0; x < WIDTH; x++) {
@@ -74,6 +75,10 @@ function placeInTable(y, x) {
   const div = document.createElement('div');
   div.classList.add('piece');
   div.classList.add(`p${currPlayer}`);
+  const top = document.querySelector('#column-top');
+  top.classList.toggle('p1');
+  // top.classList.add(`p${currPlayer}`);
+  top.classList.toggle('p2');
   const cellForDiv = document.getElementById(`${y}-${x}`);
   cellForDiv.appendChild(div);
 }
@@ -83,7 +88,7 @@ function placeInTable(y, x) {
 function endGame(msg) {
   // TODO: pop up alert message
   setTimeout(function () {
-    alert(`Player ${currPlayer} won the game!`)
+    alert(msg);
   }, 10);
   // top.removeEventListener("click", handleClick);
   playingGame = false;
@@ -114,10 +119,8 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  if (board.every(el => {
-      el !== null;
-    })) {
-    return endGame;
+  if (board.every(arr => arr.every(el => el !== null))){
+  return endGame("It's a tie!");
   }
   // switch players
   // TODO: switch currPlayer 1 <-> 2
